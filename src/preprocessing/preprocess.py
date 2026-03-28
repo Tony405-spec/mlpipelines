@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 
 def preprocess_data(df: pd.DataFrame, config: Dict, logger: logging.Logger) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[str], StandardScaler]:
     """
-    Clean the dataset and perform train/test split with scaling.
+    Clean the dataset, perform train/test split with scaling, and persist the processed training slice to CSV.
     Returns processed train and test arrays along with feature names and fitted scaler.
     """
     paths = config["paths"]

@@ -7,7 +7,7 @@ Portfolio-ready, production-style, multi-node machine learning workflow built wi
 Pipeline nodes and data flow:
 
 - **Ingestion** (`src/ingestion/data_loader.py`): Load existing CSV or generate synthetic classification data; persists raw dataset.
-- **Preprocessing** (`src/preprocessing/preprocess.py`): Clean, de-duplicate, scale features, and split train/test; saves processed parquet.
+- **Preprocessing** (`src/preprocessing/preprocess.py`): Clean, de-duplicate, scale features, and split train/test; saves processed CSV.
 - **Training** (`src/training/train_model.py`): Ray-parallel grid search over RandomForest hyperparameters using cross-validation; trains best model.
 - **Evaluation** (`src/evaluation/evaluator.py`): Compute accuracy, precision, recall, F1, and ROC-AUC; persist metrics.
 - **Visualization** (`src/visualization/visualizer.py`): Save confusion matrix, ROC curve, feature importance, and training vs validation curves.
