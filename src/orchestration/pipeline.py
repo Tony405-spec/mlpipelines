@@ -27,9 +27,19 @@ def load_config(config_path: str) -> Dict:
         return yaml.safe_load(f)
 
 
-def setup_logging(log_config_path: Path) -> None:
+def setup_logging(log_config_path: Path, log_file_path: Optional[str] = None) -> None:
     log_config = yaml.safe_load(log_config_path.read_text())
-    Path("logs").mkdir(exist_ok=True)
+    if log_file_path:
+        file_dir = Path(log_file_path).parent
+        file_dir.mkdir(parents=True, exist_ok=True)
+        for handler in log_config.get("handlers", {}).values():
+            if handler.get("class") == "logging.handlers.RotatingFileHandler":
+                handler["filename"] = log_file_path
+    else:
+        for handler in log_config.get("handlers", {}).values():
+            filename = handler.get("filename")
+            if filename:
+                Path(filename).parent.mkdir(parents=True, exist_ok=True)
     dictConfig(log_config)
 
 
@@ -49,8 +59,13 @@ def save_model(outputs_dir: Path, model) -> Path:
 
 def run_pipeline(config_path: str = "config.yaml", ray_address: Optional[str] = None) -> Dict:
     config = load_config(config_path)
-    log_config_path = Path(config.get("logging_config", config.get("paths", {}).get("logging_config", "configs/logging.yaml")))
-    setup_logging(log_config_path)
+    log_config_path = Path(
+        config.get("logging_config")
+        or config.get("paths", {}).get("logging_config")
+        or "configs/logging.yaml"
+    )
+    log_file_path = config.get("paths", {}).get("logs")
+    setup_logging(log_config_path, log_file_path)
     logger = logging.getLogger("mlpipeline")
 
     ray_cfg = config.get("ray", {})
