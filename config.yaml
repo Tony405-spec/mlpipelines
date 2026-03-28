@@ -1,0 +1,41 @@
+paths:
+  raw_data: data/raw/raw_data.csv
+  processed_data: data/processed/processed.csv
+  outputs: outputs
+  reports: reports
+  logs: logs/pipeline.log
+logging_config: configs/logging.yaml
+
+data:
+  source: synthetic
+  n_samples: 1200
+  n_features: 20
+  n_informative: 12
+  n_redundant: 4
+  class_sep: 1.5
+  random_state: 42
+
+preprocessing:
+  test_size: 0.2
+  random_state: 42
+  scaler: standard
+
+training:
+  model: random_forest
+  hyperparameters:
+    n_estimators: [100, 200]
+    max_depth: [null, 12]
+    min_samples_split: [2, 4]
+  n_jobs: -1
+  random_state: 42
+
+evaluation:
+  metrics: [accuracy, precision, recall, f1]
+
+visualization:
+  enabled: true
+
+ray:
+  num_cpus: 4
+  local_mode: false
+  ignore_reinit_error: true
