@@ -22,6 +22,7 @@ def _build_test_config(tmp_path: Path) -> Path:
             "reports": str(tmp_path / "reports"),
             "logs": str(tmp_path / "logs" / "pipeline.log"),
         },
+        "logging_config": str(ROOT / "configs" / "logging.yaml"),
         "data": {
             "source": "synthetic",
             "n_samples": 300,

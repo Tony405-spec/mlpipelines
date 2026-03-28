@@ -10,7 +10,7 @@ Pipeline nodes and data flow:
 - **Preprocessing** (`src/preprocessing/preprocess.py`): Clean, de-duplicate, scale features, and split train/test; saves processed CSV.
 - **Training** (`src/training/train_model.py`): Ray-parallel grid search over RandomForest hyperparameters using cross-validation; trains best model.
 - **Evaluation** (`src/evaluation/evaluator.py`): Compute accuracy, precision, recall, F1, and ROC-AUC; persist metrics.
-- **Visualization** (`src/visualization/visualizer.py`): Save confusion matrix, ROC curve, feature importance, and training vs validation curves.
+- **Visualization** (`src/visualization/visualizer.py`): Save confusion matrix, ROC curve, feature importance, and learning (training vs validation) curves.
 - **Orchestration** (`src/orchestration/pipeline.py`): Load config, initialize logging, start Ray, wire all nodes, persist artifacts.
 
 Mermaid diagram of the flow:
@@ -113,7 +113,7 @@ Key artifacts after a run:
 - `outputs/confusion_matrix.png`
 - `outputs/roc_curve.png`
 - `outputs/feature_importance.png`
-- `outputs/training_validation_curve.png`
+- `outputs/learning_curve.png`
 - `outputs/best_params.json` & `outputs/search_results.json`
 
 ### Connect to an existing Ray cluster

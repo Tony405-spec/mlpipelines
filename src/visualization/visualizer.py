@@ -85,12 +85,12 @@ def plot_learning_curve(
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.plot(train_sizes, train_mean, label="Training F1", marker="o")
     ax.plot(train_sizes, val_mean, label="Validation F1", marker="s")
-    ax.set_title("Training vs Validation Curve")
+    ax.set_title("Learning Curve (Training vs Validation)")
     ax.set_xlabel("Training examples")
     ax.set_ylabel("F1 Score")
     ax.legend()
 
-    path = outputs_dir / "training_validation_curve.png"
+    path = outputs_dir / "learning_curve.png"
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)

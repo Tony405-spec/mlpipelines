@@ -4,6 +4,7 @@ paths:
   outputs: outputs
   reports: reports
   logs: logs/pipeline.log
+logging_config: configs/logging.yaml
 
 data:
   source: synthetic

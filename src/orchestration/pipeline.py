@@ -49,7 +49,8 @@ def save_model(outputs_dir: Path, model) -> Path:
 
 def run_pipeline(config_path: str = "config.yaml", ray_address: Optional[str] = None) -> Dict:
     config = load_config(config_path)
-    setup_logging(Path("configs/logging.yaml"))
+    log_config_path = Path(config.get("logging_config", config.get("paths", {}).get("logging_config", "configs/logging.yaml")))
+    setup_logging(log_config_path)
     logger = logging.getLogger("mlpipeline")
 
     ray_cfg = config.get("ray", {})
